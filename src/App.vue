@@ -1,12 +1,25 @@
-<script setup lang="ts">
+<script lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
+import alchemy from './utils/alchemy.js'
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  data() {
+    return {
+      blockNumber: null as number | null
+    }
+  },
+  async created() {
+    this.blockNumber = await alchemy.core.getBlockNumber()
+  }
+})
 </script>
 
 <template>
   <header>
     <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
+    {{ blockNumber }}
     <div class="wrapper">
       <HelloWorld msg="You did it!" />
 
