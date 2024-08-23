@@ -4,10 +4,14 @@ import alchemy from '@/utils/alchemy'
 import type { BigNumberish, BlockWithTransactions } from 'alchemy-sdk'
 import { Utils } from 'alchemy-sdk'
 import IconSearch from '@/components/icons/IconSearch.vue'
+import IconBlock from '@/components/icons/IconBlock.vue'
+import IconTransaction from '@/components/icons/IconTransaction.vue'
 
 export default defineComponent({
   components: {
     IconSearch,
+    IconBlock,
+    IconTransaction
   },
   data() {
     return {
@@ -53,19 +57,7 @@ export default defineComponent({
       <div class="flex gap-8">
         <div class="w-1/2">
           <h2 class="text-2xl font-bold mb-4 text-blue-600 flex items-center">
-            <svg
-              class="mr-2 h-6 w-6"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-              <line x1="3" y1="9" x2="21" y2="9" />
-              <line x1="9" y1="21" x2="9" y2="9" />
-            </svg>
+            <IconBlock />
             Latest Blocks
           </h2>
           <ul class="space-y-4">
@@ -88,20 +80,7 @@ export default defineComponent({
 
         <div class="w-1/2">
           <h2 class="text-2xl font-bold mb-4 text-blue-600 flex items-center">
-            <svg
-              class="mr-2 h-6 w-6"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <line x1="7" y1="10" x2="17" y2="10" />
-              <polyline points="11 14 7 10 11 6" />
-              <line x1="17" y1="14" x2="7" y2="14" />
-              <polyline points="13 18 17 14 13 10" />
-            </svg>
+            <IconTransaction />
             Latest Transactions {{ curBlockNumber }}
           </h2>
           <ul class="space-y-4">
