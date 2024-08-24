@@ -16,22 +16,18 @@ export default defineComponent({
   data() {
     return {
       blockNumber: null as number | null,
-      blockWithTxs: null as BlockWithTransactions | null,
-      curBlockNumber: null as number | null
+      blockWithTxs: null as BlockWithTransactions | null
     }
   },
   async created() {
     this.blockNumber = await alchemy.core.getBlockNumber()
-    this.curBlockNumber = this.blockNumber
     this.blockWithTxs = await alchemy.core.getBlockWithTransactions(this.blockNumber)
   },
   methods: {
-    weiToEth(wei: BigNumberish | undefined) {
-      if (!wei) return 0
+    weiToEth(wei: BigNumberish = 0) {
       return Utils.formatUnits(wei, 'ether')
     },
     async fetchBlockWithTxs(blockNumber: number) {
-      this.curBlockNumber = blockNumber
       this.blockWithTxs = await alchemy.core.getBlockWithTransactions(blockNumber)
     }
   }
@@ -69,7 +65,12 @@ export default defineComponent({
               <div class="flex justify-between items-center">
                 <span
                   class="text-blue-600 font-semibold text-lg cursor-pointer"
-                  @click="fetchBlockWithTxs(blockNumber ? blockNumber - i + 1 : 0)"
+                  @click="
+                    $router.push({
+                      name: 'block',
+                      params: { block: blockNumber ? blockNumber - i + 1 : 0 }
+                    })
+                  "
                 >
                   #{{ blockNumber ? blockNumber - i + 1 : 0 }}
                 </span>
@@ -81,7 +82,7 @@ export default defineComponent({
         <div class="w-1/2">
           <h2 class="text-2xl font-bold mb-4 text-blue-600 flex items-center">
             <IconTransaction />
-            Latest Transactions {{ curBlockNumber }}
+            Latest Transactions
           </h2>
           <ul class="space-y-4">
             <li
